@@ -20,7 +20,7 @@ if fl is not None:
     st.write(filename)
     df=pd.read_csv(filename,encoding='ISO-8859-1')
 else:
-    os.chdir(r"C:\Users\HP\Downloads\Video\Dashboard with stream\Superstore-Dashboard-with-python") 
+ 
     df=pd.read_csv('Superstores.csv',encoding='ISO-8859-1')
    
 #converting order data to data format
