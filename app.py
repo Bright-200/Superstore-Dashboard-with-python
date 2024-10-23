@@ -32,7 +32,7 @@ with open(CSV_FILE) as f:
     st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)   
 #converting order data to data format
 # creating columns for the starting date and the ending date
-Col1,Col2=st.columns((2))
+Col1,Col2=st.columns(2)
 df['Order Date']=pd.to_datetime(df['Order Date'])
 
 Starting_date=pd.to_datetime(df['Order Date']).min()
