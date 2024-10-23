@@ -1,11 +1,17 @@
 import streamlit as st
 import pandas as pd
-import os
+
 import warnings
 import plotly.express as px
 
+from pathlib import Path
+
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title='SupperStore',page_icon=':bar_chart:',layout='wide')
+# import css
+THIS_PATH=Path(__file__).parent
+CSV_FILE=THIS_PATH/'style'/'style.css'
+
 st.title (":bar_chart: Supper Store Data")
 st.markdown('''
 
@@ -22,7 +28,8 @@ if fl is not None:
 else:
  
     df=pd.read_csv('Superstores.csv',encoding='ISO-8859-1')
-   
+with open(CSV_FILE) as f:
+    st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)   
 #converting order data to data format
 # creating columns for the starting date and the ending date
 Col1,Col2=st.columns((2))
