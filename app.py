@@ -138,7 +138,7 @@ st.plotly_chart(fig_4,use_container_width=True)
 chart1,chart2=st.columns((2))
 with chart1:
     st.subheader('Segement Wise Sales')
-    fig_5=px.pie(filtered_df,values='Sales',names='Segment',template='plotly_dark')
+    fig_5=px.pie(filtered_df,values='Sales',names='Segment',template='seaborn')
     fig_5.update_traces(text=filtered_df['Segment'],textposition='inside',hole=0.1)
     st.plotly_chart(fig_5,use_container_width=True)
 

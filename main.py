@@ -3,12 +3,22 @@ import warnings
 import os
 import plotly.express as px
 import pandas as pd
+from pathlib import Path
 # creating an title and front text
+THIS_PATH=Path(__file__).parent
+CSV_FILE=THIS_PATH/'style'/'style.css'
+
 st.set_page_config(page_title='SuperStore',page_icon=':bar_chart:',layout='wide',initial_sidebar_state="expanded")
+with open(CSV_FILE) as f:
+    st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)
 warnings.filterwarnings("ignore")
 st.title(':bar_chart: SuperStores')
 st.markdown('<style>div.block-container{padding-top:3rem;}</style>',unsafe_allow_html=True)
 # creating an import button
+def get_person_name():
+    query_params=st.experimental_get_query_params()
+    return query_params.get("name",["Friend"])[0]
+PERSON=get_person_name()
 fl=st.file_uploader(':file_folder: **Click to Upload a File**',type=['csv', 'txt','zip','xls','xlsx'])
 
 if fl is not None:
@@ -74,7 +84,7 @@ else:
 # creating a columns
 category_df=filtered_df.groupby('Category',as_index=False)['Sales'].sum()
 with col1:
-    st.subheader('Category Data',divider='rainbow')
+    st.subheader(f'Category Data {PERSON}',divider='rainbow')
     fig_1=px.bar(category_df,x='Category',y='Sales',text=['${:,.2f}'.format(x) for x in category_df['Sales']],template='seaborn')
     st.plotly_chart(fig_1,use_container_width=True)
 
@@ -146,7 +156,7 @@ with st.expander("Summary of Data of the chart"):
     sub_categories_table=pd.pivot_table(filtered_df,columns='month_name',index=['Sub-Category'],values='Sales')
     st.write(sub_categories_table.style.background_gradient(cmap=('Oranges')))
     
-    
+#st.cache()    
 # -------------------------------- Creating a Scatter plot for the chart 
 st.subheader('This  is a scatter plot',help='Below is the scatter plot for all the data')
 scatter_plot=px.scatter(filtered_df,x='Sales',y='Profit',hover_data='Sales',hover_name='Region',size_max=12,size='Quantity',animation_group='Sales')
