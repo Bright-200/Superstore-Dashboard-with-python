@@ -11,7 +11,7 @@ st.set_page_config(page_title='SupperStore',page_icon=':bar_chart:',layout='wide
 # import css
 THIS_PATH=Path(__file__).parent
 CSV_FILE=THIS_PATH/'style'/'style.css'
-
+st.cache_resource()
 st.title (":bar_chart: Supper Store Data")
 st.markdown('''
 
